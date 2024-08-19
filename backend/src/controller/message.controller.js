@@ -27,7 +27,7 @@ const getMessagesByConversationId = async (req, res) => {
   const { conversationId } = req.params;
 
   try {
-    const messages = await Message.find({ conversationId }).sort({ timestamp: -1 });
+    const messages = await Message.find({ conversationId }).sort({ timestamp: 1 });
     res.status(200).json({ messages });
   } catch (error) {
     console.error('Error fetching messages by conversation ID:', error);

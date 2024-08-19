@@ -1,4 +1,46 @@
 import Conversation from '../model/conversation.js';
+import openai from '../config/openaiConfiguration.js';
+import { ROLES } from '../share/constants.js';
+
+// Summarize the conversation
+const summarizeConversation = async (req, res) => {
+    try {
+        const { id } = req.params;
+    
+      const messages = await getConversationById(id);
+      const summary = await generateSummary(messages);
+      
+      await Conversation.findByIdAndUpdate(conversationId, { summary });
+  
+      return summary;
+    } catch (error) {
+        console.error('Error :', error);
+        res.status(500).json({ error: 'Failed to generate summary' });
+        
+    }
+  };
+
+// Generate conversation summary
+const generateSummary = async (messages) => {
+  try {
+    // Concatenate messages into a single string
+    const conversationText = messages
+      .map(msg => `${msg.role === ROLES.DOCTOR ? 'Doctor' : 'Patient'}: ${msg.text}`)
+      .join('\n');
+    
+    // Call OpenAI's API
+    const response = await openai.createCompletion({
+      model: 'text-davinci-003',
+      prompt: `Summarize the following conversation:\n\n${conversationText}`,
+      max_tokens: 150,
+      temperature: 0.7,
+    });
+
+    return response.data.choices[0].text.trim();
+  } catch (error) {
+    console.error('Error :', error);
+  }
+};
 
 // Retrieve all conversations
 const getAllConversations = async (req, res) => {
@@ -60,4 +102,5 @@ export default {
     getConversationById,
     createConversation,
     deleteConversationById,
+    summarizeConversation
   };

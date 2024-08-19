@@ -15,4 +15,7 @@ conversationRouter.post("/conversation", conversationController.createConversati
 // Delete a conversation by ID
 conversationRouter.delete("/conversation/:id", conversationController.deleteConversationById);
 
+// Summarize the conversation
+conversationRouter.post("/conversation/generate-summary/:id", conversationController.summarizeConversation);
+
 export default conversationRouter;
