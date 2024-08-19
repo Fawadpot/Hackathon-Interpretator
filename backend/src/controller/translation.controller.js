@@ -1,7 +1,7 @@
-const translate = require('translate-google-api');
-const Translation = require('../model/translation');
+import translate from 'translate-google-api';
+import Translation from '../model/translation.js'; // Ensure this path uses .js extension
 
-const giveTranslatedText = async (req, res) => {
+export const giveTranslatedText = async (req, res) => {
   const { text, sourceLang, targetLang } = req.body;
   try {
     const result = await translate(text, { from: sourceLang, to: targetLang });
@@ -18,5 +18,3 @@ const giveTranslatedText = async (req, res) => {
     res.status(500).json({ error: 'Translation failed' });
   }
 };
-
-module.exports = giveTranslatedText;

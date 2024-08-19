@@ -1,6 +1,7 @@
 {
   "name": "language-interpreter-backend",
   "version": "1.0.0",
+  "type": "module",
   "engine": "20.12.2",
   "private": "true",
   "description": "This backend server consist of endpoints for translating text from one language to another. Currently this server supports language translation from English to Spanish and vice-versa.",
@@ -9,7 +10,7 @@
     "start": "node ./src/index.js",
     "start:dev": "nodemon ./src/index.js",
     "start:debug": "nodemon --inspect ./src/index.js",
-    "initiate-project": "rm -rf ./node-modules && npm clean-install && touch .env"
+    "initiate-project": "rm -rf ./node-modules && npm install && touch .env"
   },
   "keywords": [],
   "author": "Fawad Aslam Randhawa",
