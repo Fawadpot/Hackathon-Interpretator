@@ -4,7 +4,6 @@ import {
   VStack,
   HStack,
   Button,
-  Select,
   Textarea,
   Text,
   Spinner,
@@ -15,7 +14,6 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import { HiSpeakerWave } from "react-icons/hi2";
 import { FaStopCircle } from "react-icons/fa";
-import LanguagesSelect from "./components/LanguagesSelect";
 
 const App = () => {
   const [sourceText, setSourceText] = useState("");
